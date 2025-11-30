@@ -28,11 +28,11 @@
     }
 </style>
 
-<div class="col m-2">
+<div class="col ">
     <h5 class="text-center">Liste des produits->Page_Index</h5>
     <a class="btn mb-1 btn-outline-primary" href="{{ route('produits.create') }}">Ajouter un Produit</a>
     <div class="table-responsive">
-        <table class="table table-bordered table-striped  ">
+        <table class="table table-bordered table-striped">
             <thead class="text-center">
                 <tr>
                     <th>N<sup>0</sup></th>
@@ -40,9 +40,7 @@
                     <th>Description </th>
                     <th>keywords </th>
                     <th class="das">Categorie </th>
-                    <th class="das">Section </th>
                     <th>Image1 </th>
-
                     <th>Prix </th>
                     <th>Action</th>
 
@@ -57,7 +55,6 @@
                     <td class=" ">{{$produit->product_description}}</td>
                     <td class=" ">{{$produit->product_keywords}}</td>
                     <td class=" ">{{$produit->categorie_id}}</td>
-                    <td class=" ">{{$produit->section_id}}</td>
                     <td >
                         <img src="{{ asset('storage/' . $produit->product_image1) }}" class="imaq" alt="image">
                     </td>

@@ -28,7 +28,7 @@ class VenteController extends Controller
         $clients = Client::all();
         $produits = Produit::all();
         $vendeurs = Vendeur::all();
-        return view('ventes.create',compact('client','produits','vendeurs'));
+        return view('ventes.form',compact('clients','produits','vendeurs'));
     }
 
     /**
@@ -36,7 +36,12 @@ class VenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'vendeur_id'=>'required|exists:vendeurs,id',
+            'client_id'=>'required|exists:clients,id',
+            'produit_id'=>'required|exists:produits,id'
+        ]);
+        
     }
 
     /**

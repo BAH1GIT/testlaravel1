@@ -64,7 +64,7 @@
                         <input type="submit" class="btn btn-primary col-12 text-white " value="Ajouter Produit">
                     </div>
                     <div class="col-6">
-                        <input type="submit" class="btn btn-warning col-12 text-white " value="Retour">
+                        <a href="{{ route('produits.index') }}" class="btn btn-warning col-12 text-white ">Retour</a>
                     </div>
                 </div>
             </div>

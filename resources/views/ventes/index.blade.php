@@ -24,7 +24,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-   table td .das{
+
+    table td .das {
         width: 130px !important;
     }
 </style>
@@ -37,29 +38,22 @@
             <thead class="text-center">
                 <tr>
                     <th>N<sup>0</sup></th>
-                    <th>Titre </th>
-                    <th>Image </th>
                     <th>Vendeur </th>
                     <th>Client </th>
                     <th>quantite</th>
-                    <th>Prix </th>
+                    <th>Prix</th>
                     <th>Action</th>
-
                 </tr>
             </thead>
             <tbody class="">
-               @foreach ($ventes as $v)
-               <tr>
-                <td>{{ $v->produit->product_title }}</td>
-                <td>
-                    <img src="{{asset( 'Uploads/'.$v->produit->product_image1) }}" class="imaq" alt="">
-                </td>
-                <td>{{ $v->vendeur->nom }}</td>
-                <td>{{ $v->client->nom }}</td>
-                <td>{{ $v->quantite }}</td>
-                <td>{{ $v->produit->product_price }}</td>
-                <td>{{ $v->prix_total }}</td>
-                 <td>
+                <tr>
+                @foreach ($ventes as $v)
+                <td>{{ $v->id }}</td>
+                    <td>{{ $v->vendeur->nom }}</td>
+                    <td>{{ $v->client->nom }}</td>
+                    <td>{{ $v->quantite }}</td>
+                    <td>{{ $v->prix_total }}</td>
+                    <td>
                         <div class="d-flex justify-content-center align-item-center gap-1">
 
                             <a href="{{ route('ventes.detail',$v->id) }}" class="btn btn-outline-info">
@@ -87,9 +81,8 @@
                             </form>
                         </div>
                     </td>
-               </tr>
-               
-               @endforeach
+                @endforeach
+                </tr>
             </tbody>
         </table>
     </div>
