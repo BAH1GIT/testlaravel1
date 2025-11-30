@@ -33,11 +33,8 @@
         <table class="table table-bordered table-striped">
             <thead class="text-center">
                 <tr>
-                    <th>ID</th>
-                    <th>Client</th>
+                    <th>N</th>
                     <th>Vendeur</th>
-                    <th>Produit</th>
-                    <th>Image</th>
                     <th>Quantité</th>
                     <th>Total</th>
                     <th>Action</th>

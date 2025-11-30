@@ -49,7 +49,7 @@ use App\Http\Controllers\VenteController;
 
 
     Route::get('listProduct', [ProduitController::class,'index'])->name('produits.index');
-    Route::get('formProduct', [ProduitController::class,'create'])->name('produits.create');
+    Route::get('/', [ProduitController::class,'create'])->name('produits.create');
     Route::post('ajouProduct', [ProduitController::class,'store'])->name('produits.store');
     Route::get('detailProduct/{produit}', [ProduitController::class,'show'])->name('produits.detail');
     Route::get('editProduct/{produit}', [ProduitController::class,'edit'])->name('produits.edit');
@@ -57,7 +57,7 @@ use App\Http\Controllers\VenteController;
     Route::delete('deleteProduct/{produit}', [ProduitController::class,'destroy'])->name('produits.delete');
 
 
-     Route::get('/', [VenteController::class,'index'])->name('ventes.index');
+     Route::get('fzfd', [VenteController::class,'index'])->name('ventes.index');
     Route::get('formVente', [VenteController::class,'create'])->name('ventes.create');
     Route::post('ajouVente', [VenteController::class,'store'])->name('ventes.store');
     Route::get('detailVente/{vente}', [VenteController::class,'show'])->name('ventes.detail');
