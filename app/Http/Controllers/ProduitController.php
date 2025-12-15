@@ -16,7 +16,7 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        $produits = Produit::all();
+        $produits = Produit::with('categorie')->get();
         return view('produits.index', compact('produits'));
     }
 
@@ -47,7 +47,6 @@ class ProduitController extends Controller
 
 public function store(Request $request)
 {
-    // 1️⃣ Validation
     $request->validate([
         'product_title'   => 'required|string',
         'product_price'   => 'required|numeric',
@@ -57,32 +56,30 @@ public function store(Request $request)
         'product_image2'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
         'product_image3'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
     ]);
-
-    // 2️⃣ Créer un nouveau produit
     $produit = new Produit();
     $produit->product_title       = $request->product_title;
     $produit->product_description = $request->product_description;
     $produit->product_keywords    = $request->product_keywords;
-    $produit->categorie_id        = $request->categorie_id;
+    $produit->categorie_id       = $request->categorie_id;
     $produit->section_id          = $request->section_id;
     $produit->product_price       = $request->product_price;
 
-    // 3️⃣ Gestion image 1
+
     if ($request->hasFile('product_image1')) {
         $produit->product_image1 = $request->file('product_image1')->store('products', 'public');
     }
 
-    // 4️⃣ Gestion image 2
+
     if ($request->hasFile('product_image2')) {
         $produit->product_image2 = $request->file('product_image2')->store('products', 'public');
     }
 
-    // 5️⃣ Gestion image 3
+
     if ($request->hasFile('product_image3')) {
         $produit->product_image3 = $request->file('product_image3')->store('products', 'public');
     }
 
-    // 6️⃣ Enregistrer le produit
+
     $produit->save();
 
     return redirect()->route('produits.index')->with('success', 'Produit ajouté avec succès');
@@ -115,7 +112,6 @@ public function store(Request $request)
 
 public function update(Request $request, Produit $produit)
 {
-    // 1️⃣ Validation
     $request->validate([
         'product_title'   => 'required|string',
         'product_price'   => 'required|numeric',
@@ -125,8 +121,6 @@ public function update(Request $request, Produit $produit)
         'product_image2'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
         'product_image3'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
     ]);
-
-    // 2️⃣ Mettre à jour les champs texte
     $produit->product_title       = $request->product_title;
     $produit->product_description = $request->product_description;
     $produit->product_keywords    = $request->product_keywords;
@@ -134,33 +128,25 @@ public function update(Request $request, Produit $produit)
     $produit->section_id          = $request->section_id;
     $produit->product_price       = $request->product_price;
 
-    // 3️⃣ Gestion image 1
+  
     if ($request->hasFile('product_image1')) {
-        // Supprimer l'ancienne si elle existe
         if ($produit->product_image1 && Storage::disk('public')->exists($produit->product_image1)) {
             Storage::disk('public')->delete($produit->product_image1);
         }
-        // Stocker la nouvelle
         $produit->product_image1 = $request->file('product_image1')->store('products', 'public');
     }
-
-    // 4️⃣ Gestion image 2
     if ($request->hasFile('product_image2')) {
         if ($produit->product_image2 && Storage::disk('public')->exists($produit->product_image2)) {
             Storage::disk('public')->delete($produit->product_image2);
         }
         $produit->product_image2 = $request->file('product_image2')->store('products', 'public');
     }
-
-    // 5️⃣ Gestion image 3
     if ($request->hasFile('product_image3')) {
         if ($produit->product_image3 && Storage::disk('public')->exists($produit->product_image3)) {
             Storage::disk('public')->delete($produit->product_image3);
         }
         $produit->product_image3 = $request->file('product_image3')->store('products', 'public');
     }
-
-    // 6️⃣ Enregistrer le produit
     $produit->save();
 
     return redirect()->route('produits.index')->with('success', 'Produit mis à jour avec succès');

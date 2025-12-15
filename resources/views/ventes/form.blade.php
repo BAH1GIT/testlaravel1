@@ -6,11 +6,13 @@
     </div>
     <form class="bg-info p-3 rounded-3 " method="post" action="{{ route('ventes.store') }}" enctype="multipart/form-data">
         @csrf
+
+        <!-- selection du Client, vendeur et du produit -->
         <div class="row">
             <div class="col-4">
                 <div class="mb-1">
                     <label class="form-label text-white">Vendeur</label>
-                    <select name="nom" class="form-select">
+                    <select name="vendeur_id" class="form-select">
                         <option value="">Sélectionner un Vendeur</option>
                         @foreach ($vendeurs as $v)
                         <option value="{{ $v->id }}">{{ $v->nom }}</option>
@@ -21,7 +23,7 @@
             <div class="col-4">
                 <div class="mb-1">
                     <label class="form-label text-white">Client</label>
-                    <select name="nom" class="form-select">
+                    <select name="client_id" class="form-select">
                         <option value="">Sélectionner un Client</option>
                         @foreach ($clients as $c)
                         <option value="{{ $c->id }}">{{ $c->nom }}</option>
@@ -42,7 +44,7 @@
                 </select>
             </div>
         </div>
-
+        <!-- afffichage du detail du produit et inserer quantite  -->
         <div class="row mb-2">
             <div class="col-4">
                 <div class="mb-1">
@@ -65,36 +67,40 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-4">
                 <div class="mb-1">
                     <label for="quantite" class="form-label text-white">Quantite</label>
-                    <input name="quantite" type="number" id="quantite" min="1" value="1" class="form-control" >
+                    <input name="quantite" type="number" id="quantite" min="1" value="1" class="form-control">
                 </div>
             </div>
-
         </div>
+        <!-- bouton ajout vente et retour vers index vente -->
         <div class="row">
             <div class="col-6">
-                <input type="submit" class="btn btn-primary w-100" value="Ajouter Vente">
-            </div>
-            <div class="col-6">
                 <a href="{{ route('ventes.index') }}" class="btn btn-secondary w-100">Retour</a>
+            </div>
+            <div class="col-6 ">
+                <input type="submit" class="btn btn-primary w-100" value="Ajouter Vente">
             </div>
         </div>
 
     </form>
 </div>
 <script>
-    document.getElementById('produit_select').addEventListener('change', function() {
+    const produitSelect = document.getElementById('produit_select')
+    const productTitle = document.getElementById('product_title')
+    const productPrice = document.getElementById('product_price')
+    const Quantite = document.getElementById('quantite')
+    const productImage1 = document.getElementById('product_image1')
+    produitSelect.addEventListener('change', function() {
         let option = this.options[this.selectedIndex];
 
-        document.getElementById('product_title').value = option.dataset.title || "";
-        document.getElementById('product_price').value = option.dataset.price || "";
-        document.getElementById('quantite').value = option.dataset.quantite || "";
+        productTitle.value = option.dataset.title || "";
+        productPrice.value = option.dataset.price || "";
+        Quantite.value = option.dataset.quantite || "";
 
         let image = option.dataset.image;
-        document.getElementById('product_image1').src = image ? `/storage/${image}` : "";
+        productImage1.src = image ? `/storage/${image}` : "";
     });
 </script>
 

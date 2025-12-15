@@ -16,24 +16,28 @@
     table.table td,
     table.table th {
         text-align: center;
+        /* Centre le texte */
         vertical-align: middle;
+        /* Centre verticalement */
         white-space: nowrap;
         max-width: 150px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    table td .das {
+        width: 130px !important;
+    }
 </style>
 
-<div class="container mt-3">
-    <h3 class="text-center mb-3">Liste des ventes</h3>
-
-    <a href="{{ route('vendeurs.create') }}" class="btn btn-primary mb-3">Nouvelle vente</a>
-
+<div class="col ">
+    <h5 class="text-center">Liste des vendeurs->Page_Index</h5>
+    <a class="btn mb-1 btn-outline-primary" href="{{ route('vendeurs.create') }}">Ajouter un Vendeur</a>
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="text-center">
                 <tr>
-                    <th>N</th>
+                    <th>N<sup>0</sup></th>
                     <th>Nom</th>
                     <th>Poste</th>
                     <th>Action</th>
@@ -43,7 +47,7 @@
             <tbody>
                 @foreach($vendeurs as $v)
                 <tr>
-                    <td>{{ $v->id }}</td>
+                    <td>{{ $loop->iteration}}</td>
                     <td>{{ $v->nom }}</td>
                     <td>{{ $v->poste }}</td>
                      <td class="  ">

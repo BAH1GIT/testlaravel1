@@ -231,7 +231,8 @@
     }
 </style>
 
-    <h2 class="titree">DETAIL//categorie</h2>
+        <h3>Détails du Produit #{{ $client->id }}</h3>
+
 
 
 <div class="card">

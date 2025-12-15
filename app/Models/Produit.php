@@ -28,8 +28,5 @@ public function section() {
     return $this->belongsTo(Section::class);
 }
 
-public function vente(){
-    return $this->hasMany(Vente::class);
-}
 
 }

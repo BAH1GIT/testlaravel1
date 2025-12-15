@@ -23,7 +23,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-   table td .das{
+
+    table td .das {
         width: 130px !important;
     }
 </style>
@@ -38,7 +39,6 @@
                     <th>N<sup>0</sup></th>
                     <th>Titre </th>
                     <th>Description </th>
-                    <th>keywords </th>
                     <th class="das">Categorie </th>
                     <th>Image1 </th>
                     <th>Prix </th>
@@ -46,22 +46,24 @@
 
                 </tr>
             </thead>
-            <tbody class="">
+            <tbody>
                 @foreach ($produits as $produit)
-                <tr class=" ">
+                <tr>
 
-                    <th scope="row" class=" ">{{$produit->id}}</th>
-                    <td class=" ">{{$produit->product_title}}</td>
-                    <td class=" ">{{$produit->product_description}}</td>
-                    <td class=" ">{{$produit->product_keywords}}</td>
-                    <td class=" ">{{$produit->categorie_id}}</td>
-                    <td >
+                    <th scope="row">{{$loop->iteration}}</th>
+                    <td>{{$produit->product_title}}</td>
+                    <td>{{$produit->product_description}}</td>
+                    <td>
+                        {{ $produit->categorie ? $produit->categorie->libele : '—' }}
+                    </td>
+
+                    <td>
                         <img src="{{ asset('storage/' . $produit->product_image1) }}" class="imaq" alt="image">
                     </td>
 
-                    <td class=" ">{{$produit->product_price}}</td>
+                    <td>{{$produit->product_price}}</td>
 
-                    <td class="  ">
+                    <td>
                         <div class="d-flex justify-content-center align-item-center gap-1">
 
                             <a href="{{ route('produits.detail',$produit->id) }}" class="btn btn-outline-info">
@@ -91,7 +93,7 @@
                     </td>
                 </tr>
                 @endforeach
-    
+
             </tbody>
         </table>
     </div>

@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vente extends Model
 {
+    protected $fillable = [
+        'vendeur_id',
+        'client_id',
+        'product_id',
+        'quantite',
+        'prix_total'
+    ];
     public function produit()
     {
-        return $this->belongsTo(produit::class,'product_id');
+        return $this->belongsTo(Produit::class,'product_id');
     }
     public function vendeur()
     {

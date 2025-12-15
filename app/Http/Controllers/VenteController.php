@@ -28,7 +28,7 @@ class VenteController extends Controller
         $clients = Client::all();
         $produits = Produit::all();
         $vendeurs = Vendeur::all();
-        return view('ventes.form',compact('clients','produits','vendeurs'));
+        return view('ventes.form', compact('clients', 'produits', 'vendeurs'));
     }
 
     /**
@@ -37,19 +37,29 @@ class VenteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'vendeur_id'=>'required|exists:vendeurs,id',
-            'client_id'=>'required|exists:clients,id',
-            'produit_id'=>'required|exists:produits,id'
+            'vendeur_id' => 'required|exists:vendeurs,id',
+            'client_id' => 'required|exists:clients,id',
+            'product_id' => 'required|exists:produits,id'
         ]);
-        
-    }
+        $produits = Produit::findOrFail($request->product_id);
+        $prix = $produits->product_price * $request->quantite;
+        Vente::create([
+            'vendeur_id' => $request->vendeur_id,
+            'client_id' => $request->client_id,
+            'product_id' => $request->product_id,
+            'quantite' => $request->quantite,
+            'prix_total' => $prix,
+        ]);
 
+        return redirect()->route('ventes.index')->with('success', 'Vente ajoutée avec succès !');
+    }
     /**
      * Display the specified resource.
      */
     public function show(Vente $vente)
     {
-        //
+        $vente->load('produit','vendeur','client');
+        return view('ventes.detail',['vente'=>$vente]);
     }
 
     /**
@@ -57,7 +67,10 @@ class VenteController extends Controller
      */
     public function edit(Vente $vente)
     {
-        //
+        $clients = Client::all();
+        $produits = Produit::all();
+        $vendeurs = Vendeur::all();
+        return view('ventes.edit', compact('vente', 'clients', 'produits', 'vendeurs'));
     }
 
     /**
@@ -65,7 +78,22 @@ class VenteController extends Controller
      */
     public function update(Request $request, Vente $vente)
     {
-        //
+        $request->validate([
+            'vendeur_id' => 'required|exists:vendeurs,id',
+            'client_id' => 'required|exists:clients,id',
+            'product_id' => 'required|exists:produits,id'
+        ]);
+        $produits = Produit::findOrFail($request->product_id);
+        $prix = $produits->product_price * $request->quantite;
+
+        $vente->vendeur_id = $request->vendeur_id;
+        $vente->product_id = $request->product_id;
+        $vente->client_id = $request->client_id;
+        $vente->quantite = $request->quantite;  
+        $vente->prix_total = $prix;
+$vente->save();
+
+        return redirect()->route('ventes.index')->with('success', 'Vente ajoutée avec succès !');
     }
 
     /**
@@ -73,6 +101,7 @@ class VenteController extends Controller
      */
     public function destroy(Vente $vente)
     {
-        //
+        $vente->delete();
+        return redirect(route('ventes.index'));
     }
 }
