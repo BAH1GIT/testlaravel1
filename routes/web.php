@@ -1,14 +1,32 @@
-    <?php
+<?php
 
-    use App\Models\Client;
-    use Illuminate\Support\Facades\Route;
-    use App\Http\Controllers\ClientController;
-    use App\Http\Controllers\SectionController;
-    use App\Http\Controllers\CategorieController;
-    use App\Http\Controllers\ProduitController;
-    use App\Http\Controllers\VendeurController;
-    use App\Http\Controllers\VenteController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ProduitController;
+use App\Http\Controllers\VendeurController;
+use App\Http\Controllers\VenteController;
+use App\Http\Controllers\ProfileController;
 
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+
+
+    #============ route categories ============
     Route::get('listCat', [CategorieController::class, 'index'])->name('categories.index');
     Route::get('formCat', [CategorieController::class, 'create'])->name('categories.create');
     Route::post('ajouCat', [CategorieController::class, 'store'])->name('categories.store');
@@ -17,6 +35,7 @@
     Route::put('updateCat/{categorie}', [CategorieController::class, 'update'])->name('categories.update');
     Route::delete('deleteCat/{categorie}', [CategorieController::class, 'destroy'])->name('categories.delete');
 
+    #============ route section ============
 
     Route::get('listSec', [SectionController::class, 'index'])->name('sections.index');
     Route::get('formSec', [SectionController::class, 'create'])->name('sections.create');
@@ -26,6 +45,7 @@
     Route::put('updateSec/{section}', [SectionController::class, 'update'])->name('sections.update');
     Route::delete('deleteSec/{section}', [SectionController::class, 'destroy'])->name('sections.delete');
 
+    #============ route client ============
 
     Route::get('listClient', [ClientController::class, 'index'])->name('clients.index');
     Route::get('formClient', [ClientController::class, 'create'])->name('clients.create');
@@ -36,6 +56,7 @@
     Route::delete('deleteClient/{client}', [ClientController::class, 'destroy'])->name('clients.delete');
 
 
+    #============ route vendeur ============
 
     Route::get('listVend', [VendeurController::class, 'index'])->name('vendeurs.index');
     Route::get('formVend', [VendeurController::class, 'create'])->name('vendeurs.create');
@@ -46,6 +67,7 @@
     Route::delete('deleteVend/{vendeur}', [VendeurController::class, 'destroy'])->name('vendeurs.delete');
 
 
+    #============ route produit ============
 
 
     Route::get('listProduct', [ProduitController::class, 'index'])->name('produits.index');
@@ -56,6 +78,7 @@
     Route::put('updateProduct/{produit}', [ProduitController::class, 'update'])->name('produits.update');
     Route::delete('deleteProduct/{produit}', [ProduitController::class, 'destroy'])->name('produits.delete');
 
+    #============ route vente ============
 
     Route::get('/', [VenteController::class, 'index'])->name('ventes.index');
     Route::get('formVente', [VenteController::class, 'create'])->name('ventes.create');
@@ -64,3 +87,6 @@
     Route::get('editVente/{vente}', [VenteController::class, 'edit'])->name('ventes.edit');
     Route::put('updateVente/{vente}', [VenteController::class, 'update'])->name('ventes.update');
     Route::delete('deleteVente/{vente}', [VenteController::class, 'destroy'])->name('ventes.delete');
+});
+
+require __DIR__ . '/auth.php';

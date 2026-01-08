@@ -26,7 +26,7 @@
                 @endforeach
             </select>
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <label for="selectSection" class="form-label text-white">Section</label>
             <select name="section_id" id="selectSection" class="form-select">
                 <option value="">Selectionner une section</option>
@@ -34,7 +34,7 @@
                 <option value="{{ $section->id }}">{{ $section->title }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> -->
 
         <div class="mb-3">
             <label for="product_image1" class="form-label  text-white"> Image1 du produit</label>

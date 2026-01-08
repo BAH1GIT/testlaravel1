@@ -39,15 +39,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="mb-1">
-                            <label for="selectSection" class="form-label text-white">Section</label>
-                            <select name="section_id" id="selectSection" class="form-select">
-                                <option value="">Selectionner une section</option>
-                                @foreach ($sections as $section)
-                                <option value="{{ $section->id }}">{{ $section->title }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                       
 
                         <div class="mb-1">
                             <label for="product_keywords" class="form-label  text-white"> Mots clé du produit</label>

@@ -26,7 +26,6 @@
                 <h5 class="card-title"> Titre :{{ $produit->product_title }}</h5>
                 <p class="card-text"><strong>Description :</strong>{{ $produit->product_description }}</p>
                 <p class="card-text"><strong>Categorie :</strong>{{ $produit->categorie->libele}}</p>
-                <p class="card-text"><strong>section :</strong>{{ $produit->section->title }}</p>
                 <p class="card-text"><strong>Prix du produit :</strong>{{ $produit->product_price }}</p>
 
 

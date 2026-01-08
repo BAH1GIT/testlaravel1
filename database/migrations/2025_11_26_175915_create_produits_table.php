@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('product_description');
             $table->string('product_keywords',100);
             $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
-            $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');
             $table->string('product_image1')->nullable();
             $table->string('product_image2')->nullable();
             $table->string('product_image3')->nullable();

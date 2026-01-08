@@ -36,9 +36,9 @@ class ProduitController extends Controller
     public function create()
     {
         $categories = Categorie::all();
-        $sections   = Section::all();
+        // $sections   = Section::all();
 
-        return view('produits.form', compact('categories', 'sections'));
+        return view('produits.form', compact('categories'));
     }
 
     /**
@@ -51,7 +51,7 @@ public function store(Request $request)
         'product_title'   => 'required|string',
         'product_price'   => 'required|numeric',
         'categorie_id'    => 'required',
-        'section_id'      => 'required',
+        // 'section_id'      => 'required',
         'product_image1'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
         'product_image2'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
         'product_image3'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
@@ -61,7 +61,7 @@ public function store(Request $request)
     $produit->product_description = $request->product_description;
     $produit->product_keywords    = $request->product_keywords;
     $produit->categorie_id       = $request->categorie_id;
-    $produit->section_id          = $request->section_id;
+    // $produit->section_id          = $request->section_id;
     $produit->product_price       = $request->product_price;
 
 
@@ -102,8 +102,8 @@ public function store(Request $request)
     public function edit(Produit $produit)
     {
         $categories = Categorie::all();
-        $sections   = Section::all();
-        return view('produits.edit', compact('produit', 'categories', 'sections'));
+        // $sections   = Section::all();
+        return view('produits.edit', compact('produit', 'categories'));
     }
 
     /**
@@ -116,7 +116,7 @@ public function update(Request $request, Produit $produit)
         'product_title'   => 'required|string',
         'product_price'   => 'required|numeric',
         'categorie_id'    => 'required',
-        'section_id'      => 'required',
+        // 'section_id'      => 'required',
         'product_image1'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
         'product_image2'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
         'product_image3'  => 'nullable|image|mimes:jpg,jpeg,png,gif',
@@ -125,7 +125,7 @@ public function update(Request $request, Produit $produit)
     $produit->product_description = $request->product_description;
     $produit->product_keywords    = $request->product_keywords;
     $produit->categorie_id        = $request->categorie_id;
-    $produit->section_id          = $request->section_id;
+    // $produit->section_id          = $request->section_id;
     $produit->product_price       = $request->product_price;
 
   
